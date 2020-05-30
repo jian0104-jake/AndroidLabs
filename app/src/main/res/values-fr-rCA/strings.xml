@@ -3,4 +3,20 @@
     <string name="app_name">Android Labs</string>
     <string name="hello_message">Bonjour CA!</string>
     <string name="ButtonText">bouton</string>
+    <string name="myGUI">Regardez GUI</string>
+    <string name="clickHere">CLIQUEZ ICI</string>
+    <string name="checkThis">Regarde ça!</string>
+    <string name="switchOn">Allumer/éteindre</string>
+    <string name="hintText">Écrivez ici</string>
+    <string name="toast_message">Voici plus de informations</string>
+    <string name="undo">annuler</string>
+
+    <string name="checkOn">La case à cocher est activée</string>
+    <string name="checkOff">La case à cocher est désactivée</string>
+
+
+    <string name="switchIsOn">Le interrupteur est allumé</string>
+    <string name="switchIsOff">Le interrupteur est éteint </string>
+
+
 </resources>
