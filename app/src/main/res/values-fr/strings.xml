@@ -6,7 +6,7 @@
     <string name="myGUI">Regardez GUI</string>
     <string name="clickHere">CLIQUEZ ICI</string>
     <string name="checkThis">Regarde ça!</string>
-    <string name="switchOn">Allumer/éteindre</string>
+    <string name="switchOn">allumé/éteint</string>
     <string name="hintText">Écrivez ici</string>
     <string name="toast_message">Voici plus de informations</string>
     <string name="undo">annuler</string>
