@@ -27,14 +27,16 @@
         android:orientation="horizontal">
 
         <Button
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:layout_weight="1"
+
         android:text="@string/clickHere"
         android:id="@+id/myBtn"
             />
 
         <CheckBox
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_gravity="fill"
@@ -48,14 +50,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
             <ImageButton
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="fill"
             android:src="@drawable/flag"
             />
 
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="fill"
                 android:text="@string/switchOn"
                 android:id="@+id/mySwitch"
                 />
