@@ -17,4 +17,15 @@
     <string name="switchIsOn">The switch is on </string>
     <string name="switchIsOff">The switch is off </string>
 
+    <string name="emailText">Enter your email address</string>
+    <string name="emailHint">Type email here</string>
+    <string name="passwordText">Type your password</string>
+    <string name="loginBtn">LOGIN</string>
+    <string name="yourProfile">Your profile</string>
+    <string name="yourName">Your name:</string>
+    <string name="nameHint">Enter your name</string>
+    <string name="yourEmail">Enter your email</string>
+    <string name="yourPicture">Your picture:</string>
+    <string name="clickTheButton">Click the button above to take a picture</string>
+
 </resources>

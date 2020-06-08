@@ -17,6 +17,16 @@
 
     <string name="switchIsOn">Le interrupteur est allumé</string>
     <string name="switchIsOff">Le interrupteur est éteint </string>
+    <string name="emailText">Entrez votre adresse email</string>
+    <string name="emailHint">"Saisissez votre e-mail ici "</string>
+    <string name="passwordText">Tapez votre mot de passe</string>
+    <string name="loginBtn">S\'IDENTIFIER</string>
+    <string name="yourProfile">Votre profil</string>
+    <string name="yourName">Votre nom:</string>
+    <string name="nameHint">Entrez votre nom</string>
+    <string name="yourEmail">Entrer votre Email</string>
+    <string name="yourPicture">Ta photo:</string>
+    <string name="clickTheButton">Cliquez sur le bouton ci-dessus pour prendre une photo</string>
 
 
 </resources>
