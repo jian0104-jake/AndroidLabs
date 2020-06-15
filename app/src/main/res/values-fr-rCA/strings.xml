@@ -27,6 +27,10 @@
     <string name="yourEmail">Entrer votre Email</string>
     <string name="yourPicture">Ta photo:</string>
     <string name="clickTheButton">Cliquez sur le bouton ci-dessus pour prendre une photo</string>
+    <string name="goToChat">Aller au chat</string>
+    <string name="send">ENVOYER</string>
+    <string name="receive">RECEVOIR</string>
+    <string name="typeHere">écrivez ici</string>
 
 
 </resources>

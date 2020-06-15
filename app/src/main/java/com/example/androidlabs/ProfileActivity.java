@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -28,6 +29,15 @@ public class ProfileActivity extends AppCompatActivity {
         String emailFromMain = fromMain.getStringExtra("EMAIL");
         emailEditText.setText(emailFromMain);
         Log.e(ACTIVITY_NAME, "In function:" + "onCreate()");
+
+
+        Button goToChatBtn = findViewById(R.id.goToChat);
+        goToChatBtn.setOnClickListener(click->{
+            Intent goToChat = new Intent(ProfileActivity.this, ChatRoomActivity.class);
+            startActivity(goToChat);
+        });
+
+
     }
 
 

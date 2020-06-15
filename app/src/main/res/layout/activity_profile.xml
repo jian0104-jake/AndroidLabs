@@ -63,4 +63,12 @@
         android:text="@string/clickTheButton"
         />
 
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/goToChat"
+        android:text="@string/goToChat"
+        />
+
 </LinearLayout>

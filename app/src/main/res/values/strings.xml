@@ -27,5 +27,9 @@
     <string name="yourEmail">Enter your email</string>
     <string name="yourPicture">Your picture:</string>
     <string name="clickTheButton">Click the button above to take a picture</string>
+    <string name="goToChat">Go to chat</string>
+    <string name="send">SEND</string>
+    <string name="receive">RECEIVE</string>
+    <string name="typeHere">type here</string>
 
 </resources>
