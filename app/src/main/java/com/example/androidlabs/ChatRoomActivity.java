@@ -3,7 +3,11 @@ package com.example.androidlabs;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +17,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
+    static final String DB_NAME = "Message DB";
     private ArrayList<Message> list = new ArrayList<Message>();
     private MyListAdapter myAdapter;
+    SQLiteDatabase db;
 
 
     @Override
@@ -28,6 +32,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
+        loadDataFromDatabase();
 
         ListView myList = findViewById(R.id.listView);
         myList.setAdapter(myAdapter = new MyListAdapter());
@@ -42,23 +47,43 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         sendBtn.setOnClickListener(click->{
             String inputText =editText.getText().toString();
-            list.add(new Message(inputText, true));
+            boolean isSend = true;
+
+            ContentValues newRowValues = new ContentValues();
+            newRowValues.put(MessageOpenHelper.COL_MESSAGE, inputText );
+            newRowValues.put(MessageOpenHelper.COL_IS_SEND,isSend);
+
+            long newId = db.insert(MessageOpenHelper.TABLE_NAME,null,newRowValues);
+
+            list.add(new Message(inputText, isSend,newId));
+
             editText.setText("");
             myAdapter.notifyDataSetChanged();
 
         });
+
 
         receiveBtn.setOnClickListener(click->{
             String inputText =editText.getText().toString();
-            list.add(new Message(inputText, false));
+            boolean isSend = false;
+
+            ContentValues newRowValues = new ContentValues();
+            newRowValues.put(MessageOpenHelper.COL_MESSAGE, inputText );
+            newRowValues.put(MessageOpenHelper.COL_IS_SEND,isSend);
+
+            long newId = db.insert(MessageOpenHelper.TABLE_NAME,null,newRowValues);
+            list.add(new Message(inputText, isSend, newId));
             editText.setText("");
             myAdapter.notifyDataSetChanged();
         });
+
+
         myList.setOnItemLongClickListener((p,b,pos,id)->{
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Do you want to delete this? The row is " + (pos+1) +", database id is " + id)
 
                     .setPositiveButton("Yes",(click,arg)->{
+                        deleteMessage(list.get(pos));
                         list.remove(pos);
                         myAdapter.notifyDataSetChanged();
                     })
@@ -73,6 +98,69 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     }
 
+    private void loadDataFromDatabase()
+    {
+        //get a database connection:
+        MessageOpenHelper dbOpener = new MessageOpenHelper(this);
+        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+
+
+        // We want to get all of the columns. Look at MyOpener.java for the definitions:
+        String [] columns = {MessageOpenHelper.COL_ID, MessageOpenHelper.COL_MESSAGE, MessageOpenHelper.COL_IS_SEND};
+        //query all the results from the database:
+        Cursor results = db.query(false, MessageOpenHelper.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        //Now the results object has rows of results that match the query.
+        //find the column indices:
+        int messageColumnIndex = results.getColumnIndex(MessageOpenHelper.COL_MESSAGE);
+        int isSendColIndex = results.getColumnIndex(MessageOpenHelper.COL_IS_SEND);
+        int idColIndex = results.getColumnIndex(MessageOpenHelper.COL_ID);
+        //iterate over the results, return true if there is a next item:
+        while(results.moveToNext())
+        {
+            String messageText = results.getString(messageColumnIndex);
+            boolean isSend = !(results.getInt(isSendColIndex) == 0);
+            long id = results.getLong(idColIndex);
+
+            //add the new Contact to the array list:
+            list.add(new Message(messageText, isSend, id));
+        }
+
+        results = db.query(false, MessageOpenHelper.TABLE_NAME, columns, null, null, null, null, null, null);
+        printCursor(results, db.getVersion());
+
+    }
+
+    private void printCursor(Cursor c, int version){
+
+        Log.i(DB_NAME, "version: "+version+" Total columns: " + c.getColumnCount() );
+        String[] columnNames = c.getColumnNames();
+        String names ="" ;
+        for(String s : columnNames){
+            names = names+ "\t" + s;
+        }
+        Log.i(DB_NAME, names );
+
+        Log.i(DB_NAME, "Total rows: " + c.getCount());
+        while(c.moveToNext())
+        {
+        String rowOutput = "";
+
+        for(int i =0; i < columnNames.length; i++){
+            rowOutput = rowOutput + "\t" + c.getString(i);
+        }
+        Log.i(DB_NAME, rowOutput );
+        }
+
+    }
+
+    private void deleteMessage(Message message)
+    {
+        db.delete(MessageOpenHelper.TABLE_NAME, MessageOpenHelper.COL_ID + "= ?", new String[] {Long.toString(message.getId())});
+    }
+
+
+
 
     private class MyListAdapter extends BaseAdapter{
 
@@ -83,13 +171,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         }
 
         @Override
-        public Object getItem(int position) {
+        public Message getItem(int position) {
             return list.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return getItem(position).getId();
         }
 
         @Override
@@ -108,7 +196,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 tView = newView.findViewById(R.id.receiveText);
             }
 
-            tView.setText(mes.getMessgage());
+            tView.setText(mes.getMessage());
             return newView;
 
 
