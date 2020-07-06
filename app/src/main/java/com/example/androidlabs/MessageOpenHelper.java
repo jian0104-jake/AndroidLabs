@@ -8,10 +8,10 @@ public class MessageOpenHelper extends SQLiteOpenHelper {
 
     protected final static String DATABASE_NAME = "MessageDB";
     protected final static int VERSION_NUM = 1;
-    public final static String TABLE_NAME = "MESSAGES";
-    public final static String COL_MESSAGE = "MESSAGE";
-    public final static String COL_IS_SEND = "IS_SEND";
-    public final static String COL_ID = "_id";
+    protected final static String TABLE_NAME = "MESSAGES";
+    protected final static String COL_MESSAGE = "MESSAGE";
+    protected final static String COL_IS_SEND = "IS_SEND";
+    protected final static String COL_ID = "_id";
 
     public MessageOpenHelper(Context ctx){
         super(ctx, DATABASE_NAME, null, VERSION_NUM);

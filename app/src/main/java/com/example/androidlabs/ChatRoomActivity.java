@@ -198,8 +198,6 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             tView.setText(mes.getMessage());
             return newView;
-
-
         }
     }
 

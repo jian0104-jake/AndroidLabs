@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_lab3);
 
         EditText emailText = findViewById(R.id.emailText);
+
 
         Button loginBtn = findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(e->
