@@ -125,8 +125,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             //add the new Contact to the array list:
             list.add(new Message(messageText, isSend, id));
         }
-
-        results = db.query(false, MessageOpenHelper.TABLE_NAME, columns, null, null, null, null, null, null);
+        results.moveToPosition(-1);
+        //results = db.query(false, MessageOpenHelper.TABLE_NAME, columns, null, null, null, null, null, null);
         printCursor(results, db.getVersion());
 
     }
