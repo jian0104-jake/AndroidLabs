@@ -31,6 +31,11 @@
     <string name="send">ENVOYER</string>
     <string name="receive">RECEVOIR</string>
     <string name="typeHere">écrivez ici</string>
+    <string name="goToWeather">Prévisions météorologiques</string>
+    <string name="currTemperature">"La température actuelle: "</string>
+    <string name="minTemperature">"Température mini: "</string>
+    <string name="maxTemperature">"Température max: "</string>
+    <string name="UV">"UV: "</string>
 
 
 </resources>
