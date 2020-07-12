@@ -49,6 +49,12 @@ android:orientation="vertical">
     android:text="@string/yourPicture"
     />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/goToWeather"
+        android:text="@string/goToWeather"
+        />
 
 <ImageButton
     android:layout_width="match_parent"
@@ -71,11 +77,5 @@ android:orientation="vertical">
     android:text="@string/goToChat"
     />
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/goToWeather"
-    android:text="@string/goToWeather"
-    />
 
 </LinearLayout>
