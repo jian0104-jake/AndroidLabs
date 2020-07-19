@@ -2,6 +2,7 @@ package com.example.androidlabs;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -27,7 +28,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ArrayList<Message> list = new ArrayList<Message>();
     private MyListAdapter myAdapter;
     SQLiteDatabase db;
-
+    Fragment dFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +93,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                         deleteMessage(list.get(pos));
                         list.remove(pos);
                         myAdapter.notifyDataSetChanged();
+                        if(!isPhone)
+                          this.getSupportFragmentManager().beginTransaction().remove(dFragment).commit();
                     })
 
                     .setNegativeButton("No",(click,arg)->{})
@@ -102,11 +105,11 @@ public class ChatRoomActivity extends AppCompatActivity {
             return true;
         });
 
-        myList.setOnItemClickListener((list, view, position, id)->{
+        myList.setOnItemClickListener((lists, view, position, id)->{
             Bundle dataToPass = new Bundle();
-//            dataToPass.putString(ITEM_SELECTED, source.get(position) );
-//            dataToPass.putInt(ITEM_POSITION, position);
-//            dataToPass.putLong(ITEM_ID, id);
+            dataToPass.putLong("ID", id );
+            dataToPass.putString("message", list.get(position).getMessage());
+            dataToPass.putBoolean("isSend", list.get(position).isSend());
 
 
             if(isPhone){
@@ -116,7 +119,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         }else //tablet
             {
-                DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+                dFragment = new DetailsFragment(); //add a DetailFragment
                 dFragment.setArguments( dataToPass ); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()

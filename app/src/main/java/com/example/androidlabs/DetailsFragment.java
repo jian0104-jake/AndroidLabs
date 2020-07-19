@@ -1,12 +1,18 @@
 package com.example.androidlabs;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +20,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class DetailsFragment extends Fragment {
+
+    private Bundle dataFromActivity;
+    private AppCompatActivity parentActivity;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,9 +68,38 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false);
 
 
+        dataFromActivity = getArguments();
+        View newView =inflater.inflate(R.layout.fragment_details, container, false);
+        TextView messageView = newView.findViewById(R.id.fragmentHello);
+        TextView idView = newView.findViewById(R.id.fragmentID);
+        CheckBox isSendBox = newView.findViewById(R.id.fragmentIsSend);
+
+        long id = dataFromActivity.getLong("ID");
+
+        messageView.setText(dataFromActivity.getString("message"));
+        idView.setText("ID=" + id);
+
+        isSendBox.setChecked(dataFromActivity.getBoolean("isSend"));
+
+        Button hideBtn = newView.findViewById(R.id.fragmentHideBtn);
+        hideBtn.setOnClickListener(clk->{
+            parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+
+        });
+
+        return newView;
+
+
+
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        parentActivity = (AppCompatActivity)context;
 
 
     }
