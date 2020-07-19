@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,6 +33,10 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
+
+        FrameLayout frameLayout = findViewById(R.id.fragmentLocation);
+        boolean isPhone = frameLayout==null;
+
 
         loadDataFromDatabase();
 
@@ -95,6 +101,30 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             return true;
         });
+
+        myList.setOnItemClickListener((list, view, position, id)->{
+            Bundle dataToPass = new Bundle();
+//            dataToPass.putString(ITEM_SELECTED, source.get(position) );
+//            dataToPass.putInt(ITEM_POSITION, position);
+//            dataToPass.putLong(ITEM_ID, id);
+
+
+            if(isPhone){
+                Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+
+        }else //tablet
+            {
+                DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+        }
+        });
+
 
     }
 

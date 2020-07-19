@@ -36,5 +36,10 @@
     <string name="minTemperature">"Min Temperature: "</string>
     <string name="maxTemperature">Max Temperature</string>
     <string name="UV">"UV: "</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Message Here</string>
+    <string name="idEquals">ID=</string>
+    <string name="fragmentIsSend">Is a Send Message</string>
+    <string name="fragmentHideBtn">HIDE</string>
 
 </resources>
